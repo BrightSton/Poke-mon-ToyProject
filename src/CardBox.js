@@ -74,17 +74,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
-import { getDataDB } from "./redux/modules/cardSlice";
+import { getCardsThunk } from "./redux/modules/cardSlice";
 
 const CardBox = () => {
-  const cardList = useSelector((state) => state.cardSlice?.list);
+  const cardList = useSelector((state) => state.cardSlice.data.results);
   console.log(cardList);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getDataDB());
+    dispatch(getCardsThunk());
   }, []);
 
+  useEffect(() => {
+    console.log(cardList);
+  }, [cardList]);
   return (
     <Cards>
       {cardList.map((data, index) => {
